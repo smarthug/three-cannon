@@ -14,6 +14,7 @@ export default function Main() {
   useEffect(() => {
     Init();
     Animate();
+    
   }, []);
 
   function Init() {
