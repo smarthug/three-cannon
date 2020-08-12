@@ -1,10 +1,10 @@
 import * as THREE from "three";
-import React,{ useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import CameraControls from "camera-controls";
 // let CameraControls
 
-CameraControls.install( { THREE: THREE } );
+CameraControls.install({ THREE: THREE });
 
 let cube, scene, camera, renderer, cameraControls;
 const clock = new THREE.Clock();
@@ -34,16 +34,7 @@ export default function Main() {
     scene.add(cube);
     camera.position.z = 5;
 
-    // renderer.render(scene, camera);
-
-    // import("camera-controls").then((module) => {
-    //   console.log(module);
-    //   // CameraControls = module.default();
-    //   module.default().install({ THREE: THREE });
-    //   cameraControls = new module.default()(camera, renderer.domElement);
-    // });
-
-     cameraControls = new CameraControls( camera, renderer.domElement );
+    cameraControls = new CameraControls(camera, renderer.domElement);
   }
 
   function animate() {
@@ -51,17 +42,9 @@ export default function Main() {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
 
-    // snip
     const delta = clock.getDelta();
     // const hasControlsUpdated = cameraControls.update(delta);
     cameraControls.update(delta);
-
-    // requestAnimationFrame(animate);
-
-    // // you can skip this condition to render though
-    // // if (hasControlsUpdated) {
-    // //   renderer.render(scene, camera);
-    // // }
 
     renderer.render(scene, camera);
   }
