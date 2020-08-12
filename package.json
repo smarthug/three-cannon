@@ -6,9 +6,12 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "camera-controls": "^1.22.1",
+    "cannon-es": "^0.15.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.2"
+    "react-scripts": "3.4.2",
+    "three": "^0.119.1"
   },
   "scripts": {
     "start": "react-scripts start",
