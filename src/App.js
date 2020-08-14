@@ -1,14 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import First from './pages/first'
-import Second from './pages/second'
+// import First from './pages/first'
+// import Second from './pages/second'
+import Third from './pages/third'
 
 function App() {
   return (
     <div className="App">
-      <Second/>
+      <Third/>
     </div>
   );
 }
