@@ -3,11 +3,12 @@ import React, { useEffect, useRef } from "react";
 
 import CameraControls from "camera-controls";
 import * as CANNON from 'cannon-es'
+import {threeToCannon} from 'three-to-cannon'
 // let CameraControls
 
 CameraControls.install({ THREE: THREE });
 
-let cube, scene, camera, renderer, cameraControls, world, mass, body, shape, timeStep = 1 / 60;
+let cube, scene, camera, renderer, cameraControls, world,mesh, mass, body, shape, timeStep = 1 / 60;
 const clock = new THREE.Clock();
 
 function Test() {
@@ -41,6 +42,22 @@ export default function Main() {
         camera.position.z = 35;
 
         cameraControls = new CameraControls(camera, renderer.domElement);
+
+
+
+         // floor
+         geometry = new THREE.PlaneGeometry( 100, 100, 1, 1 );
+         //geometry.applyMatrix( new THREE.Matrix4().makeRotationX( -Math.PI / 2 ) );
+        //  material = new THREE.MeshLambertMaterial( { color: 0x777777 } );
+         material = new THREE.MeshBasicMaterial({side:THREE.DoubleSide});
+        //  materia
+         //markerMaterial = new THREE.MeshLambertMaterial( { color: 0xff0000 } );
+         //THREE.ColorUtils.adjustHSV( material.color, 0, 0, 0.9 );
+         mesh = new THREE.Mesh( geometry, material );
+         mesh.castShadow = true;
+         mesh.quaternion.setFromAxisAngle(new THREE.Vector3(1,0,0), -Math.PI / 2);
+         mesh.receiveShadow = true;
+         scene.add(mesh);
     }
 
     function animate() {
@@ -83,7 +100,9 @@ function initCannon() {
     world.broadphase = new CANNON.NaiveBroadphase();
     world.solver.iterations = 10;
 
-    shape = new CANNON.Box(new CANNON.Vec3(1, 1, 1));
+    //shape = new CANNON.Box(new CANNON.Vec3(1, 1, 1));
+    shape = threeToCannon(cube);
+
     mass = 1;
     body = new CANNON.Body({
         mass: 1
@@ -96,7 +115,7 @@ function initCannon() {
 
 
     // Create a plane
-    var groundShape = new CANNON.Plane();
+    var groundShape = threeToCannon(mesh)
     var groundBody = new CANNON.Body({ mass: 0 });
     //groundBody.position.set(0,4,0)
     groundBody.addShape(groundShape);
