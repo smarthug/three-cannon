@@ -34,6 +34,15 @@ export default function Main() {
     scene.add(cube);
     camera.position.z = 5;
 
+    // renderer.render(scene, camera);
+
+    // import("camera-controls").then((module) => {
+    //   console.log(module);
+    //   // CameraControls = module.default();
+    //   module.default().install({ THREE: THREE });
+    //   cameraControls = new module.default()(camera, renderer.domElement);
+    // });
+
     cameraControls = new CameraControls(camera, renderer.domElement);
   }
 
@@ -49,5 +58,5 @@ export default function Main() {
     renderer.render(scene, camera);
   }
 
-  return <div ref={containerRef}></div>;
+  return <div ref={containerRef}>이호형과 공부2</div>;
 }
