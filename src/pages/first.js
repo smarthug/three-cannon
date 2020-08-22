@@ -66,5 +66,5 @@ export default function Main() {
     renderer.render(scene, camera);
   }
 
-  return <div ref={containerRef}>이호형과 공부</div>;
+  return <div ref={containerRef}>이호형과 공부2</div>;
 }
