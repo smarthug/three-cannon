@@ -1,10 +1,10 @@
 import * as THREE from "three";
-import React,{ useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import CameraControls from "camera-controls";
 // let CameraControls
 
-CameraControls.install( { THREE: THREE } );
+CameraControls.install({ THREE: THREE });
 
 let cube, scene, camera, renderer, cameraControls;
 const clock = new THREE.Clock();
@@ -43,7 +43,7 @@ export default function Main() {
     //   cameraControls = new module.default()(camera, renderer.domElement);
     // });
 
-     cameraControls = new CameraControls( camera, renderer.domElement );
+    cameraControls = new CameraControls(camera, renderer.domElement);
   }
 
   function animate() {
@@ -66,5 +66,5 @@ export default function Main() {
     renderer.render(scene, camera);
   }
 
-  return <div ref={containerRef}></div>;
+  return <div ref={containerRef}>이호형과 공부</div>;
 }
