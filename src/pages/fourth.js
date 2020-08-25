@@ -132,7 +132,7 @@ function updatePhysics() {
 function initCannon() {
 
     world = new CANNON.World();
-    world.gravity.set(0, -0.98, 0);
+    world.gravity.set(0, -9.8, 0);
     world.broadphase = new CANNON.NaiveBroadphase();
     world.solver.iterations = 10;
 
@@ -141,7 +141,8 @@ function initCannon() {
 
     mass = 1;
     body = new CANNON.Body({
-        mass: 1
+        mass: 1,
+        
     });
     body.addShape(shape);
     body.angularVelocity.set(0, 10, 0);
