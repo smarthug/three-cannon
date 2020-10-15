@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "camera-controls": "^1.22.1",
     "cannon-es": "^0.15.1",
+    "dat.gui": "^0.7.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.2",
