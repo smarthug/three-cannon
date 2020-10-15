@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import React, { useEffect, useRef } from "react";
-import * as dat from 'dat.gui'
+import * as dat from "dat.gui";
 import CameraControls from "camera-controls";
 
 CameraControls.install({ THREE: THREE });
@@ -29,8 +29,8 @@ export default function Main() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     containerRef.current.appendChild(renderer.domElement);
 
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-    var material = new THREE.MeshNormalMaterial();
+    var geometry = new THREE.PlaneBufferGeometry(5, 20, 32);
+    var material = new THREE.MeshNormalMaterial({side:2});
     cube = new THREE.Mesh(geometry, material);
     // scene.add(cube);
     camera.position.z = 50;
@@ -49,8 +49,14 @@ export default function Main() {
       new THREE.Vector3(40, 10, 0)
     );
 
-    var coloredLine = getColoredBufferLine(0.2, 1.5, lineGeometry);
+    // var planeGeo = new THREE.PlaneBufferGeometry( 5, 20, 32)
+    var planeGeo = new THREE.PlaneBufferGeometry(1, 1, 32);
+
+    var coloredLine = getColoredBufferLine(0.2, 1.5, planeGeo);
     scene.add(coloredLine);
+
+    var light = new THREE.AmbientLight(0x404040); // soft white light
+    scene.add(light);
 
     // changeColor(coloredLine, { steps: 0.2, phase: 1.5 });
 
@@ -108,15 +114,24 @@ function changeColor(line, options) {
 // create colored line
 // using buffer geometry
 function getColoredBufferLine(steps, phase, geometry) {
-  var vertices = geometry.vertices;
-  var segments = geometry.vertices.length;
+  var vertices = geometry.attributes.position.array;
+  console.log(geometry)
+  var segments = geometry.attributes.position.array.length/3;
 
   // geometry
-  var geometry = new THREE.BufferGeometry();
+  var geometry = new THREE.PlaneBufferGeometry(5, 20, 32);
+//   var geometry = new THREE.BufferGeometry();
 
   // material
   var lineMaterial = new THREE.LineBasicMaterial({
     vertexColors: THREE.VertexColors,
+  });
+
+  // mesh mat
+  var meshMaterial = new THREE.MeshLambertMaterial({
+    side: THREE.DoubleSide,
+    color: 0xf5f5f5,
+    vertexColors: true,
   });
 
   // attributes
@@ -129,9 +144,9 @@ function getColoredBufferLine(steps, phase, geometry) {
   var x, y, z;
 
   for (var i = 0, l = segments; i < l; i++) {
-    x = vertices[i].x;
-    y = vertices[i].y;
-    z = vertices[i].z;
+    x = vertices[i*3 ];
+    y = vertices[i*3 + 1];
+    z = vertices[i*3 + 2];
 
     positions[i * 3] = x;
     positions[i * 3 + 1] = y;
@@ -144,13 +159,18 @@ function getColoredBufferLine(steps, phase, geometry) {
     colors[i * 3 + 2] = color.b;
   }
 
-  geometry.addAttribute("position", new THREE.BufferAttribute(positions, 3));
-  geometry.addAttribute("color", new THREE.BufferAttribute(colors, 3));
+  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
   // line
-  var line = new THREE.Line(geometry, lineMaterial);
+//   var line = new THREE.Line(geometry, lineMaterial);
+//   return line;
 
-  return line;
+  // mesh
+    var mesh = new THREE.Mesh(geometry, meshMaterial);
+    console.log(mesh)
+
+    return mesh;
 }
 
 /* COLORS */
