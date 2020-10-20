@@ -72,12 +72,13 @@ vec3 square(vec3 s) { return s * s; }
     void main() {
       
       vec2 st = gl_FragCoord.xy/u_resolution.xy;
-      float t = gl_FragCoord.x / u_resolution.x;
-      float j = t + (fract(sin(gl_FragCoord.y * 7.5e2 + gl_FragCoord.x * 6.4) * 1e2) - 0.5) * 0.005;
+      float t = gl_FragCoord.y / u_resolution.y;
+
+      float j = t + (fract(sin(u_resolution.y * 7.5e2 + gl_FragCoord.x * 6.4) * 1e2) - 0.5) * 0.005;
 
 
-      float v = abs(st.y - 1.);
-      gl_FragColor = vec4(rainbowGradient(j),0) ;
+     
+      gl_FragColor = vec4(rainbowGradient(st.y),0) ;
 
       
         
@@ -88,7 +89,7 @@ vec3 square(vec3 s) { return s * s; }
     //float v = abs(st.y - 1.);
     var material = new THREE.ShaderMaterial({
       uniforms: uniforms,
-      vertexShader: vertexShader,
+      // vertexShader: vertexShader,
       fragmentShader: fragmentShader,
       // transparent: true,
       side: THREE.DoubleSide,
