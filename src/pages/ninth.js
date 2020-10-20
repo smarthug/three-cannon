@@ -152,6 +152,7 @@ function getColoredBufferLine(steps, phase, geometry) {
     positions[i * 3 + 1] = y;
     positions[i * 3 + 2] = z;
 
+    // 여기서 어떠한 작용을 ... 
     color.set(makeColorGradient(i, frequency, phase));
 
     colors[i * 3] = color.r;

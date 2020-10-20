@@ -9,12 +9,13 @@ import './App.css';
 // import Sixth from './pages/sixth'
 // import Seven from './pages/seventh'
 // import Eight from './pages/eight'
-import Ninth from './pages/ninth'
+// import Ninth from './pages/ninth'
+import Tenth from './pages/tenth'
 
 function App() {
   return (
     <div className="App">
-      <Ninth/>
+      <Tenth/>
     </div>
   );
 }
