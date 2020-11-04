@@ -12,7 +12,9 @@ let cube, scene, camera, renderer, cameraControls, world,mesh, mass, body, shape
 const clock = new THREE.Clock();
 
 function Test() {
-    body.position.set(0, 20, 0)
+    // body.position.set(0, 20, 0)
+    // get velocity from mousepoint??
+    body.velocity.set(0, 0,10)
 }
 
 export default function Main() {
@@ -40,7 +42,8 @@ export default function Main() {
 
         containerRef.current.appendChild(renderer.domElement);
 
-        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        // var geometry = new THREE.BoxGeometry(1, 1, 1);
+        var geometry = new THREE.SphereBufferGeometry(3, 32,32);
         var material = new THREE.MeshStandardMaterial( { color: 0x333333 } );
         cube = new THREE.Mesh(geometry, material);
         cube.castShadow = true;

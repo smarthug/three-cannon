@@ -10,12 +10,16 @@ import './App.css';
 // import Seven from './pages/seventh'
 // import Eight from './pages/eight'
 // import Ninth from './pages/ninth'
-import Tenth from './pages/tenth'
+// import Tenth from './pages/tenth'
+// import Eleventh from './pages/eleventh'
+// import Twelveth from './pages/twelveth'
+// import Thirteenth from './pages/Thirteenth'
+import Fourteenth from './pages/Fourteenth'
 
 function App() {
   return (
     <div className="App">
-      <Tenth/>
+      <Fourteenth/>
     </div>
   );
 }
