@@ -3,8 +3,9 @@ import React, { useEffect, useRef } from "react";
 
 import CameraControls from "camera-controls";
 
-import { BufferGeometryUtils } from "three/examples/jsm/utils/BufferGeometryUtils";
-console.log(BufferGeometryUtils);
+
+
+// Testing , npm link , and camera controls fitTo customization ... 
 
 CameraControls.install({ THREE: THREE });
 
@@ -16,8 +17,8 @@ export default function Main() {
   useEffect(() => {
     Init();
     Animate();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function Init() {
@@ -32,33 +33,19 @@ export default function Main() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     containerRef.current.appendChild(renderer.domElement);
 
-    var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
-    console.log(BufferGeometryUtils.estimateBytesUsed(geometry))
+    var geometry = new THREE.BoxGeometry(1, 1, 1);
     var material = new THREE.MeshNormalMaterial();
     cube = new THREE.Mesh(geometry, material);
-    // scene.add(cube);
+    scene.add(cube);
     camera.position.z = 5;
 
     cameraControls = new CameraControls(camera, renderer.domElement);
-
-    // test code
-    var geometry2 = new THREE.CylinderBufferGeometry(1, 1, 5, 32);
-    console.log(BufferGeometryUtils.estimateBytesUsed(geometry2))
-    geometry2.translate(0,5,0)
-    var material2 = new THREE.MeshNormalMaterial({ color: 0xffff00 });
-    const cylinder = new THREE.Mesh(geometry2, material2);
-    // cylinder.position.set(0,3,0)
-    // scene.add(cylinder);
-    let mGeo =  BufferGeometryUtils.mergeBufferGeometries([geometry,geometry2])
-    console.log(BufferGeometryUtils.estimateBytesUsed(mGeo))
-    let mMesh = new THREE.Mesh(mGeo, material);
-    scene.add(mMesh)
   }
 
   function Animate() {
     requestAnimationFrame(Animate);
-    // cube.rotation.x += 0.01;
-    // cube.rotation.y += 0.01;
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
 
     const delta = clock.getDelta();
     // const hasControlsUpdated = cameraControls.update(delta);
@@ -67,7 +54,16 @@ export default function Main() {
     renderer.render(scene, camera);
   }
 
-  return <div ref={containerRef}></div>;
+  return <div ref={containerRef}><button onClick={MyFitTo}>FitTo</button></div>;
 }
 
-function BufferGeometryUtilsTest() {}
+
+function MyFitTo(){
+    console.log("FitTo")
+
+    // 1단계 성공!
+    cameraControls.fitToBox(cube,false)
+    // 2단계 성공 , npm build 만으로 변화 주기 .... 
+
+    
+}
