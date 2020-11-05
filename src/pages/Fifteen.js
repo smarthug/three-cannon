@@ -27,6 +27,7 @@ export default function Main() {
       0.1,
       1000
     );
+    camera.up.fromArray([0, 0, 1]);
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     containerRef.current.appendChild(renderer.domElement);
@@ -53,9 +54,10 @@ export default function Main() {
     // cameraControls.maxPolarAngle = Math.PI *2;
     cameraControls.maxPolarAngle = Infinity;
 
-
     cameraControls.minAzimuthAngle = -Infinity;
     cameraControls.maxAzimuthAngle = Infinity;
+
+    cameraControls.updateCameraUp();
   }
 
   function Animate() {
@@ -83,28 +85,34 @@ function MyFitTo() {
   console.log("FitTo");
 
   // 1단계 성공!
-  cameraControls.fitToBox(cone, false , {
-      nearAxis:false,
-      theta:0,
-      phi: Math.PI/2
+  cameraControls.fitToBox(cone, false, {
+    nearAxis: false,
+    theta: 0,
+    phi: 0,
   });
+
+  //   cameraControls.fitToBox(cone, false , {
+  //     nearAxis:false,
+  //     theta:0,
+  //     phi: Math.PI/2
+  // });
   // 2단계 성공 , npm build 만으로 변화 주기 ....
-//   cameraControls.fitToSphere(cone, false);
+  //   cameraControls.fitToSphere(cone, false);
 }
 
 function MyFitTo2() {
-    console.log("FitTo");
-  
-    // 1단계 성공!
+  console.log("FitTo");
+
+  // 1단계 성공!
   //   cameraControls.fitToBox(cone, false);
-    // 2단계 성공 , npm build 만으로 변화 주기 ....
-    cameraControls.fitToSphere(cone, false);
-  }
+  // 2단계 성공 , npm build 만으로 변화 주기 ....
+  cameraControls.fitToSphere(cone, false);
+}
 
 function Rotator() {
   console.log("Rotator");
 
   // 1단계 성공!
-  cameraControls.rotate(0, Math.PI *4, true);
+  cameraControls.rotate(0, Math.PI * 4, true);
   // 2단계 성공 , npm build 만으로 변화 주기 ....
 }
