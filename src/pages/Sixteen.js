@@ -84,7 +84,25 @@ export default function Main() {
 function MyFitTo() {
   console.log("FitTo");
 
-  cameraControls.fitToBox(cone, false);
+  const boundingBox = new THREE.Box3().setFromObject(cone);
+  const size = boundingBox.getSize(new THREE.Vector3());
+  const boundingWidth = size.x;
+  const boundingHeight = size.y;
+  const boundingDepth = size.z;
+
+  //   var distanceToFit = cameraControls.getDistanceToFitBox( boundingWidth, boundingHeight, boundingDepth );
+
+  const distance = cameraControls.getDistanceToFitBox(
+    boundingWidth,
+    boundingHeight,
+    boundingDepth
+  );
+  console.log(distance);
+  cameraControls.setTarget(cone.position.x, cone.position.y, cone.position.z, false);
+  cameraControls.dollyTo(distance, false);
+  cameraControls.rotateTo(0, 0, false);
+
+  //   cameraControls.fitToBox(cone, false);
   // 1단계 성공!
   //   cameraControls.fitToBox(cone, false, {
   //     nearAxis: false,
@@ -117,5 +135,3 @@ function Rotator() {
   cameraControls.rotate(0, Math.PI * 4, true);
   // 2단계 성공 , npm build 만으로 변화 주기 ....
 }
-
-
