@@ -16,13 +16,23 @@ import './App.css';
 // import Thirteenth from './pages/Thirteenth'
 // import Fourteenth from './pages/Fourteenth'
 // import Fifteen from './pages/Fifteen'
-import Sixteen from './pages/Sixteen'
+// import Sixteen from './pages/Sixteen'
+import Seventeen from './pages/Seventeen'
+import Eighteen from './pages/Eighteen'
+import Nineteen from './pages/Nineteen'
+import Twenty from './pages/Twenty'
+
+import { SnackbarProvider } from 'notistack';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <Sixteen/>
-    </div>
+
+
+    <SnackbarProvider>
+      <Twenty />
+    </SnackbarProvider>
   );
 }
 
