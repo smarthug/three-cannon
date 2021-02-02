@@ -47,6 +47,10 @@ function next() {
 }
 
 function run({ task, params }) {
+    const state=false
+    const dom = document.createElement('div')
+    dom.appendChild("aaa")
+    !state&& document.appendChild(dom)
     return new Promise((resolve) => {
         resolve(task(...params))
     })
@@ -78,3 +82,8 @@ function unShiftTask(task, ...params){
         next();
     }
 }
+
+
+// 궁극의  event  기반 ..
+
+// dispatch event .... 

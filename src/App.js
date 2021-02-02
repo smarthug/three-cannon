@@ -20,7 +20,8 @@ import './App.css';
 import Seventeen from './pages/Seventeen'
 import Eighteen from './pages/Eighteen'
 import Nineteen from './pages/Nineteen'
-import Twenty from './pages/Twenty'
+// import Twenty from './pages/Twenty'
+import TwentyOne from './pages/TwentyOne'
 
 import { SnackbarProvider } from 'notistack';
 
@@ -28,11 +29,11 @@ import { SnackbarProvider } from 'notistack';
 
 function App() {
   return (
-
-
-    <SnackbarProvider>
-      <Twenty />
-    </SnackbarProvider>
+    <div className="App">
+      <SnackbarProvider>
+        <TwentyOne />
+      </SnackbarProvider>
+    </div>
   );
 }
 

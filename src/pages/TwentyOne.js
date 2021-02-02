@@ -88,12 +88,12 @@ export default function Main() {
         Init();
         Animate();
 
-        setInterval(() => {
+        // setInterval(() => {
 
-            // setValue
-            // console.log("hello")
-            setValue(v => v + 1);
-        }, 1000)
+        //     // setValue
+        //     // console.log("hello")
+        //     setValue(v => v + 1);
+        // }, 1000)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -181,55 +181,50 @@ export default function Main() {
 
     }
 
-
-
-    function promisedMakeMerged() {
-        let key;
-        return new Promise((resolve) => {
-            const event = new Event('start');
-            let elem = document.createElement('div');
-            elem.addEventListener('start', function () {
-                key = enqueueSnackbar("hello")
-
-            })
-
-            elem.dispatchEvent(event);
-            // setTimeout(()=>{
-            //     resolve();
-            // },1000)
-            // resolve();
-            // css 처리 ... 
-            setLoading(true)
-            console.log(testRef.current)
-            // testRef.current.style.color="red"
-            // document.getElementById("testRef").style.color="red"
-            // alert();
-            resolve();
+    async function promisedMakeMerged() {
+        CreateButton();
+        setTimeout(() => {
+            _promisedMakeMerged()
         })
-            .finally(() => {
-                const geometries = [];
-                const matrix = new THREE.Matrix4();
+    }
 
-                for (let i = 0; i < 200000; i++) {
+    function _promisedMakeMerged() {
+        let key;
+        // key = enqueueSnackbar("hello", { persist: true })
+        return new Promise((resolve) => {
 
-                    randomizeMatrix(matrix);
 
-                    const instanceGeometry = geometry.clone();
-                    instanceGeometry.applyMatrix4(matrix);
+            const geometries = [];
+            const matrix = new THREE.Matrix4();
 
-                    geometries.push(instanceGeometry);
 
-                }
+            for (let i = 0; i < 150000; i++) {
 
-                const mergedGeometry = BufferGeometryUtils.mergeBufferGeometries(geometries);
+                randomizeMatrix(matrix);
+
+                const instanceGeometry = geometry.clone();
+                instanceGeometry.applyMatrix4(matrix);
+
+                geometries.push(instanceGeometry);
+
+            }
+
+            const mergedGeometry = BufferGeometryUtils.mergeBufferGeometries(geometries);
+
+            resolve(mergedGeometry);
+
+
+        })
+            .then((mergedGeometry) => {
+
                 // return mergedGeometry;
 
                 scene.add(new THREE.Mesh(mergedGeometry, material));
-                closeSnackbar(key)
-                console.log("done");
+                // closeSnackbar(key)
+                // console.log("done");
             })
             .then(mg => {
-
+                console.log("final")
             })
     }
 
@@ -380,26 +375,37 @@ export default function Main() {
     function Test() {
         let key;
         // console.log("test");
-        // const event = new Event('start');
-        // let elem = document.createElement('div');
-        // elem.addEventListener('start', function () {
-        //     key = enqueueSnackbar("hello", {persist:true})
+        setImmediate(enqueueSnackbar)
+        const startEvent = new Event('start');
+        const mergeEvent = new Event('merge');
+        let elem = document.createElement('div');
+        elem.addEventListener('start', function () {
+            key = enqueueSnackbar("hello", { persist: true })
+            setLoading(true)
 
+        })
+
+        elem.addEventListener('merge', function () {
+            makeMerged(geometry);
+
+        })
+
+        elem.dispatchEvent(startEvent);
+        // setTimeout(() => {
+
+        //     elem.dispatchEvent(mergeEvent);
         // })
+        elem.dispatchEvent(mergeEvent);
+        // key = enqueueSnackbar("hello", {persist:true})
 
-        // elem.dispatchEvent(event);
-        testRef.current.appendChild(document.createElement("button"))
-        // document.body.appendChild(document.createElement("button"))
-        key = enqueueSnackbar("hello", {persist:true})
-        setLoading(true)
-        makeMerged(geometry);
+
     }
 
     return (
         <div>
             <div id={"testRef"} className={clsx({ clsx: loading })} ref={testRef}>works</div>
-            <div>{value}</div>
-            <CircularProgress />
+            {/* <div>{value}</div> */}
+            {/* <CircularProgress />
             <Fade
                 in={loading}
                 style={{
@@ -408,7 +414,7 @@ export default function Main() {
                 unmountOnExit
             >
                 <CircularProgress />
-            </Fade>
+            </Fade> */}
             <div>
                 <button onClick={Test}>makeMerged</button>
                 <button onClick={promisedMakeMerged}>promisedMakeMerged</button>
@@ -420,9 +426,27 @@ export default function Main() {
             <Dialog open={false}>
                 <div>hello Modal</div>
             </Dialog>
-            <div ><canvas ref={containerRef}>
-            </canvas></div>
+            <div >
+                <canvas style={{zIndex:1}} ref={containerRef} />
+
+            </div>
         </div>
 
     )
+}
+
+
+
+function CreateButton() {
+    const a = document.createElement("button");
+    a.style.position = "absolute";
+    // a.style.top = 400;
+    // a.style.left = 400;
+
+    a.style.top = 0;
+    a.style.left = 0;
+    a.style.width = "200px";
+    a.style.height = "200px";
+    a.style.zIndex = 2000;
+    document.body.appendChild(a);
 }
