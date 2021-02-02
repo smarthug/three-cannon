@@ -68,7 +68,7 @@ const randomizeMatrix = function () {
 
 
 export default function Main() {
-    const [value, setValue] = useState(0);
+    // const [value, setValue] = useState(0);
     const [loading, setLoading] = React.useState(false);
     const containerRef = useRef();
     const testRef = useRef();
@@ -114,6 +114,7 @@ export default function Main() {
         canvas.style = { width: 0, height: 0 }
         renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        // renderer.setSize(100,100);
         // containerRef.current.appendChild(renderer.domElement);
 
         geometry = new THREE.BoxBufferGeometry(1, 1, 1);
@@ -159,7 +160,7 @@ export default function Main() {
         const geometries = [];
         const matrix = new THREE.Matrix4();
 
-        for (let i = 0; i < 100000; i++) {
+        for (let i = 0; i < 10000; i++) {
 
             randomizeMatrix(matrix);
 
@@ -183,9 +184,13 @@ export default function Main() {
 
     async function promisedMakeMerged() {
         CreateButton();
+        // setTimeout(() => {
+        //     _promisedMakeMerged()
+        // },100)
+
         setTimeout(() => {
             _promisedMakeMerged()
-        })
+        },10)
     }
 
     function _promisedMakeMerged() {
@@ -405,16 +410,8 @@ export default function Main() {
         <div>
             <div id={"testRef"} className={clsx({ clsx: loading })} ref={testRef}>works</div>
             {/* <div>{value}</div> */}
-            {/* <CircularProgress />
-            <Fade
-                in={loading}
-                style={{
-                    transitionDelay: loading ? '800ms' : '0ms',
-                }}
-                unmountOnExit
-            >
-                <CircularProgress />
-            </Fade> */}
+            {/* <CircularProgress /> */}
+            
             <div>
                 <button onClick={Test}>makeMerged</button>
                 <button onClick={promisedMakeMerged}>promisedMakeMerged</button>
